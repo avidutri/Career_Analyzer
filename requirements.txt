@@ -1,0 +1,24 @@
+# Core web framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Multipart form data handling (required for file uploads)
+python-multipart>=0.0.6
+
+# Data processing
+pandas>=2.2.0
+numpy>=1.26.0
+
+# NLP & Text Processing
+nltk>=3.8.0
+
+# PDF Processing
+PyPDF2>=3.0.0
+
+# Templates
+jinja2>=3.1.0
+
+# Build tools (required for deployment)
+setuptools>=68.0.0
+wheel>=0.42.0
+pip>=23.0

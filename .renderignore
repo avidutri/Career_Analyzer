@@ -1,0 +1,12 @@
+venv/
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.env
+.env.local
+.DS_Store
+notebooks/
+outputs/
+models/

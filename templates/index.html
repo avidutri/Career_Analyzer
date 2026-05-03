@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Career Analyzer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero-panel">
+            <div class="hero-copy">
+                <p class="eyebrow">Career Skill Gap Analyzer</p>
+                <h1>Turn a resume into a job-ready direction.</h1>
+                <p class="hero-text">
+                    Paste a resume, upload a file, and get the skills plus roles your profile is closest to.
+                </p>
+            </div>
+            <div class="hero-badge">
+                <span class="badge-label">Mode</span>
+                <strong>Neo Brutalist</strong>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <div class="panel form-panel">
+                <div class="panel-head">
+                    <span class="panel-kicker">Input</span>
+                    <h2>Analyze resume</h2>
+                </div>
+
+                {% if error %}
+                    <div class="notice notice-error">{{ error }}</div>
+                {% endif %}
+
+                <form action="/analyze" method="post" enctype="multipart/form-data" class="analysis-form">
+                    <label for="resume_text">Resume text</label>
+                    <textarea id="resume_text" name="resume_text" rows="9" placeholder="Paste your resume here..."></textarea>
+
+                    <label for="file">Or upload a file</label>
+                    <input id="file" type="file" name="file" accept=".pdf,.txt,.doc,.docx">
+
+                    <button type="submit" class="primary-btn">Analyze now</button>
+                </form>
+            </div>
+
+            <aside class="panel side-panel">
+                <div class="panel-head">
+                    <span class="panel-kicker">How it works</span>
+                    <h2>Fast signal, clear output</h2>
+                </div>
+
+                <div class="stat-card">
+                    <span>1</span>
+                    <p>Extract skills from your resume text or document upload.</p>
+                </div>
+                <div class="stat-card">
+                    <span>2</span>
+                    <p>Compare those skills against the job dataset.</p>
+                </div>
+                <div class="stat-card">
+                    <span>3</span>
+                    <p>Surface the strongest matching roles and categories.</p>
+                </div>
+            </aside>
+        </section>
+
+        <section class="results-grid">
+            <div class="panel result-panel">
+                <div class="panel-head">
+                    <span class="panel-kicker">Extracted skills</span>
+                    <h2>Detected signals</h2>
+                </div>
+
+                {% if skills %}
+                    <div class="chip-group">
+                        {% for s in skills %}
+                            <span class="skill-chip">{{ s }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No skills extracted yet. Run an analysis to populate this panel.</p>
+                {% endif %}
+            </div>
+
+            <div class="panel result-panel">
+                <div class="panel-head">
+                    <span class="panel-kicker">Recommendations</span>
+                    <h2>Closest job matches</h2>
+                </div>
+
+                {% if recommendations %}
+                    <div class="recommendation-list">
+                        {% for job in recommendations %}
+                            <article class="job-card">
+                                <div class="job-card-top">
+                                    <h3>{{ job.job_role }}</h3>
+                                    <span class="score-pill">{{ job.score }}</span>
+                                </div>
+                                <p>{{ job.category }}</p>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">Your recommended roles will appear here after analysis.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
